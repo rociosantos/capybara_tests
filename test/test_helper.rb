@@ -20,22 +20,20 @@ Capybara.configure do |config|
   config.ignore_hidden_elements = false
   config.default_max_wait_time = 30
 
-  config.register_driver :custom_poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 180, phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes'])
-  end
-  config.javascript_driver = :custom_poltergeist
-  config.default_driver = :custom_poltergeist
-
-  # config.register_driver :custom_selenium do |app|
-  #   Capybara.default_driver :selenium do |app|
-  #     Capybara::Selenium::Driver.new(
-  #       app,
-  #       browser: :firefox,
-  #       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.firefox(marionette: false)
-  #     )
-  #     config.default_driver = :custom_selenium
-  #   end
+  # config.register_driver :custom_poltergeist do |app|
+  #   Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 180, phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes'])
   # end
+  # config.javascript_driver = :custom_poltergeist
+  # config.default_driver = :custom_poltergeist
+
+  config.register_driver :custom_selenium do |app|
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :firefox,
+      desired_capabilities: Selenium::WebDriver::Remote::Capabilities.firefox(marionette: false)
+    )
+    end
+  config.default_driver = :custom_selenium
 end
 
 class Minitest::Test
